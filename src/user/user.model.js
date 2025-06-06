@@ -1,45 +1,46 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+import { Schema, model} from "mongoose";
 
-const userSchema = new mongoose.Schema({
-  nombre: String,
-  username: { 
+const userSchema = new Schema({
+  name:{
     type: String,
-     unique: true 
-    },
-
+    required: [true, "El nombre es requerido"],
+    maxLength: [25, "El nombre no puede exceder de 25 letras"]
+},
+  username:{
+    type: String,
+    required: true,
+    unique:true
+},
+  email:{
+    type: String,
+    required: [true, "El correo es requerido"],
+    unique: true
+},
   password:{ 
     type: String, 
     required: true 
 },
-  rol: 
-  { type: String, 
-    enum: ['admin', 'cliente'], 
-    default: 'cliente' 
+  profilePicture:{
+  type: String
 },
-  numeroCuenta: 
-  { 
+  rol:{
+    type: String, 
+    enum: ['ADMIN_ROLE', 'CLIENTE_ROL'],
+    default: 'CLIENTE_ROL' 
+},
+  nameAccount:{ 
     type: String, 
     unique: true 
 },
-  DPI:
-   { 
+  DPI:{  
     type: String, 
     unique: true 
-   }, 
-
-  direccion:{
+},
+  address:{
     type: String,
-        required: true
-    },
-  
-  celular: { 
-    type: String, 
-    unique: true 
+    required: true
 },
-
-  correo: 
-  { 
+  phone: { 
     type: String, 
     unique: true 
 },
@@ -47,31 +48,18 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: true
 },
-
-  ingresosMensuales:
-   { 
+  ingresosMensuales:{ 
     type: Number,
-     min: 0 
-    
-   },
-  saldo:
-   {
+    min: 0 
+},
+  saldo:{
      type: Number, 
      default: 0 
-    },
-  fechaCreacion: 
-  { type: Date, 
+},
+  fechaCreacion:{ 
+    type: Date, 
     default: Date.now 
 }
-});
-
-
-userSchema.pre('save', async function (next) {
-  if (this.isModified('password')) {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-  }
-  next();
 });
 
 userSchema.methods.toJSON = function () {
@@ -80,4 +68,4 @@ userSchema.methods.toJSON = function () {
   return user;
 };
 
-export default mongoose.model('User', userSchema);
+export default model("User", userSchema)

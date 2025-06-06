@@ -2,33 +2,71 @@ import User from '../user/user.model.js';
 import generarNumeroCuenta from '../utils/generateAcunt.js';
 
 
-export const crearUser = async (req, res) => {
+export const addUser = async (req, res) => {
   try {
-    const { ingresosMensuales, correo, DPI } = req.body;
+    const { ingresosMensuales, email, DPI, phone, username, nameAccount } = req.body;
 
+    // Validación de ingresos
     if (ingresosMensuales <= 100) {
-      return res.status(400).json({ error: 'Ingresos deben ser mayores a Q100' });
+      return res.status(400).json({ 
+        error: 'Los ingresos mensuales deben ser mayores a Q100' 
+      });
     }
 
-    const existeCorreo = await User.findOne({ correo });
-    const existeDPI = await User.findOne({ DPI });
+    // Verificación de campos únicos
+    const camposUnicos = await User.findOne({
+      $or: [
+        { email },
+        { DPI },
+        { phone },
+        { username },
+        { nameAccount }
+      ]
+    });
 
-    if (existeCorreo || existeDPI) {
-      return res.status(400).json({ error: 'Correo o DPI ya registrados' });
+    if (camposUnicos) {
+      let campoDuplicado = '';
+      if (camposUnicos.email === email) campoDuplicado = 'correo electrónico';
+      else if (camposUnicos.DPI === DPI) campoDuplicado = 'DPI';
+      else if (camposUnicos.phone === phone) campoDuplicado = 'teléfono';
+      else if (camposUnicos.username === username) campoDuplicado = 'nombre de usuario';
+      else if (camposUnicos.nameAccount === nameAccount) campoDuplicado = 'nombre de cuenta';
+
+      return res.status(400).json({ 
+        error: `El ${campoDuplicado} ya está registrado en el sistema` 
+      });
     }
 
-    const numeroCuenta = generarNumeroCuenta();
-    const nuevoUser = new User({ ...req.body, numeroCuenta });
+    // Creación del usuario
+    const nuevoUser = new User({
+      ...req.body,
+      rol: 'CLIENTE_ROL', // Valor por defecto
+      saldo: 0, // Inicializar saldo en 0
+      fechaCreacion: new Date()
+    });
+
     await nuevoUser.save();
 
-    res.status(201).json({ mensaje: 'Usuario creado', user: nuevoUser });
+    // Excluir la contraseña en la respuesta
+    const userResponse = nuevoUser.toObject();
+    delete userResponse.password;
+
+    res.status(201).json({ 
+      mensaje: 'Usuario creado exitosamente',
+      usuario: userResponse
+    });
+
   } catch (err) {
-    res.status(500).json({ error: 'Error al crear usuario', detalles: err.message });
+    console.error('Error al crear usuario:', err);
+    res.status(500).json({ 
+      error: 'Error interno del servidor al crear usuario',
+      detalles: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 };
 
 
-export const verUser = async (req, res) => {
+export const getUser = async (req, res) => {
   const { id } = req.params;
 
   if (req.user.id !== id && req.user.rol !== 'admin') {
@@ -42,7 +80,7 @@ export const verUser = async (req, res) => {
 };
 
 
-export const editarUser = async (req, res) => {
+export const editUser = async (req, res) => {
   const { id } = req.params;
 
   if (req.user.id !== id && req.user.rol !== 'admin') {
@@ -71,7 +109,7 @@ export const editarUser = async (req, res) => {
 };
 
 
-export const eliminarUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   const { id } = req.params;
 
   if (req.user.rol !== 'admin') {

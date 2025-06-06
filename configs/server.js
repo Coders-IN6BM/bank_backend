@@ -21,15 +21,13 @@ const middlewares = (app) => {
 }
 
 const routes = (app) => {
-    app.use("/banck/v1/auth", authRoutes)
-    app.use("/banck/v1/User", User)
+    app.use("/bank/v1/auth", authRoutes)
+    app.use("/bank/v1/user", User)
 }
 
 const conectarDB = async () => {
     try {
         await dbConnection()
-        await crearAdmin()
-
     } catch (err) {
         console.log(`Database connection failed: ${err}`)
         process.exit(1)
@@ -42,9 +40,10 @@ export const initiServer = () => {
         middlewares(app)
         conectarDB()
         routes(app)
-        app.listen(process.env.PORT, () => {
-            console.log(`Server running on port ${process.env.PORT}`)
-            });
+        crearAdmin()
+
+        app.listen(process.env.PORT)
+        console.log(`Server running on port ${process.env.PORT}`)
     } catch (err) {
         console.log(`Server init failed: ${err}`)
     }

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { crearUser, verUser, editarUser, eliminarUser, listarUsers } from "../user/user.controller.js";
-import {registerValidator,crearUsuarioValidator,actualizarUsuarioValidator,eliminarUsuarioModoAdminValidator,actualizarAdminValidator} from "../middleware/validate-user.js";
-import { auth, permitirRoles } from "../middleware/auth.js";
+import { registerValidator, crearUsuarioValidator, actualizarUsuarioValidator, eliminarUsuarioModoAdminValidator, actualizarAdminValidator } from "../middleware/validate-user.js";
+import { auth, permitirRoles } from "../middleware/validate-auth.js";
 
 const router = Router();
 

@@ -1,9 +1,9 @@
-import { hash, verify } from 'argon2';
-import Usuarios from "../crs/usuario/user.model.js";
+import bcrypt from 'bcrypt';
+import User from "../src/user/user.model.js";
 
-export const crearAdmin = async() =>{
-    try{
-        const adminExistente = await Usuarios.findOne({ rol: "ADMIN" });
+export const crearAdmin = async () => {
+    try {
+        const adminExistente = await User.findOne({ rol: "admin" });
 
         if (adminExistente) {
             console.log("Ya existe un administrador en la base de datos.");
@@ -12,21 +12,22 @@ export const crearAdmin = async() =>{
 
         const adminDatos = {
             nombre: "Admin",
-            apellido: "PorDefecto",
             username: "admin",
             correo: "admin@gmail.com",
-            contra: "admin",
-            rol: "ADMIN",
-            telefono: "12345678" // Adjust the telefono field to meet the maximum allowed length
+            password: "admin",
+            rol: "admin", // minúsculas según tu modelo
+            celular: "12345678",
+            direccion: "Oficina Central",
+            nombreTrabajo: "Administrador"
         };
 
-        adminDatos.contra = await hash(adminDatos.contra);
+        adminDatos.password = await bcrypt.hash(adminDatos.password, 10);
 
-        const nuevoAdmin = new Usuarios(adminDatos);
+        const nuevoAdmin = new User(adminDatos);
         await nuevoAdmin.save();
 
         console.log("Administrador por defecto creado exitosamente.");
-    }catch(err){
+    } catch (err) {
         console.error("Error al crear el administrador por defecto:", err.message);
     }
 }

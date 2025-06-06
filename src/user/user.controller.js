@@ -1,5 +1,5 @@
 import User from '../user/user.model.js';
-import generarNumeroCuenta from '../utils/generarCuenta.js';
+import generarNumeroCuenta from '../utils/generateAcunt.js';
 
 
 export const crearUser = async (req, res) => {

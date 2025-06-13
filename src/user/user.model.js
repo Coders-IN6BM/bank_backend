@@ -6,6 +6,10 @@ const userSchema = new Schema({
     required: [true, "El nombre es requerido"],
     maxLength: [25, "El nombre no puede exceder de 25 letras"]
 },
+  surname:{
+    type: String,
+    required: [true, "El apellido es requerido"]
+},
   username:{
     type: String,
     required: true,
@@ -28,10 +32,6 @@ const userSchema = new Schema({
     enum: ['ADMIN_ROLE', 'CLIENTE_ROL'],
     default: 'CLIENTE_ROL' 
 },
-  nameAccount:{ 
-    type: String, 
-    unique: true 
-},
   dpi:{  
     type: String, 
     unique: true 
@@ -50,16 +50,16 @@ const userSchema = new Schema({
 },
   ingresosMensuales:{ 
     type: Number,
-    min: 0 
-},
-  saldo:{
-     type: Number, 
-     default: 0 
 },
   fechaCreacion:{ 
     type: Date, 
     default: Date.now 
-}
+},
+}, {
+
+  versionKey: false,
+  timestamps: true
+
 });
 
 userSchema.methods.toJSON = function () {

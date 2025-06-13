@@ -7,7 +7,6 @@ export const emailExist = async (email = "") => {
     }
 };
 
-
 export const usernameExist = async (username = "") => {
     const existe = await User.findOne({ username });
     if (existe) {
@@ -15,18 +14,24 @@ export const usernameExist = async (username = "") => {
     }
 };
 
-
-export const userExists = async (uid = "") => {
-    const existe = await User.findById(uid);
-    if (!existe) {
-        throw new Error("No existe el usuario con el ID proporcionado");
+export const userExists = async (dpi = "") => {
+    const user = await User.findOne({ DPI: dpi }); // Buscar por el campo DPI
+    if (user) {
+        throw new Error(`El DPI ${dpi} ya está registrado`);
     }
 };
-
 
 export const telephoneExists = async (telephone = "") => {
     const existe = await User.findOne({ telephone });
     if (existe) {
         throw new Error(`User: ${telephone}, is already registered`);
+    }
+};
+
+// Nueva función para verificar si un usuario es administrador
+export const isAdmin = async (id = "") => {
+    const user = await User.findById(id);
+    if (user && user.rol === "ADMIN_ROLE") {
+        throw new Error("No puedes realizar esta acción sobre un administrador");
     }
 };

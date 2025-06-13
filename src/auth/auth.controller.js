@@ -35,10 +35,74 @@ export const login = async (req, res) => {
           }
       });
   } catch (err) {
-      console.error("Error en el login:", err); // Agrega este log para depurar
+      console.error("Error en el login:", err); 
       return res.status(500).json({
           message: "Login failed due to server error",
           error: err.message || "Unknown error"
       });
+  }
+};
+
+export const registerUser = async (req, res) => {
+  try {
+    const {
+      name,
+      username,
+      email,
+      password,
+      dpi,
+      address,
+      phone,
+      nombreTrabajo,
+      ingresosMensuales
+    } = req.body;
+
+    // Verificar si se subió una foto de perfil
+    const profilePicture = req.file ? req.file.filename : null;
+
+    // Generar número único para la cuenta
+    const nameAccount = generarNumeroCuenta();
+
+    // Encriptar la contraseña
+    const hashedPassword = await hash(password);
+
+    // Crear el nuevo usuario
+    const newUser = new User({
+      name,
+      username,
+      email,
+      password: hashedPassword,
+      dpi: dpi,
+      address,
+      phone,
+      nombreTrabajo,
+      ingresosMensuales,
+      nameAccount,
+      profilePicture // Asignar la foto de perfil
+    });
+
+    await newUser.save();
+
+    return res.status(201).json({
+      message: "User created successfully",
+      user: {
+        name: newUser.name,
+        username: newUser.username,
+        email: newUser.email,
+        dpi: newUser.dpi,
+        address: newUser.address,
+        phone: newUser.phone,
+        nombreTrabajo: newUser.nombreTrabajo,
+        ingresosMensuales: newUser.ingresosMensuales,
+        nameAccount: newUser.nameAccount,
+        profilePicture: newUser.profilePicture
+      }
+    });
+  } catch (err) {
+    console.error("Error registering user:", err);
+    return res.status(500).json({
+      message: "User registration failed",
+      error: err.message
+    });
   }
 };

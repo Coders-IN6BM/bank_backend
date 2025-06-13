@@ -32,7 +32,7 @@ const userSchema = new Schema({
     type: String, 
     unique: true 
 },
-  DPI:{  
+  dpi:{  
     type: String, 
     unique: true 
 },

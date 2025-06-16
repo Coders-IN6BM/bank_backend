@@ -24,9 +24,6 @@ const userSchema = new Schema({
     type: String, 
     required: true 
 },
-  profilePicture:{
-  type: String
-},
   rol:{
     type: String, 
     enum: ['ADMIN_ROLE', 'CLIENTE_ROL'],

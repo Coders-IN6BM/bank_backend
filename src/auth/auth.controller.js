@@ -57,9 +57,6 @@ export const registerUser = async (req, res) => {
       ingresosMensuales
     } = req.body;
 
-    // Verificar si se subió una foto de perfil
-    const profilePicture = req.file ? req.file.filename : null;
-
     // Generar número único para la cuenta
     const nameAccount = generarNumeroCuenta();
 

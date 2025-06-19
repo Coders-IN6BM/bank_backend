@@ -30,6 +30,22 @@ export const addAccount = async (req, res) => {
     }
 };
 
+export const getAccountById = async (req, res) => {
+    try {
+        const { uid } = req.params;
+        const account = await Account.findById(uid);
+        if (!account) {
+            return res.status(404).json({ message: "Account not found" });
+        }
+        return res.status(200).json({ account });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error fetching account",
+            error: err.message
+        });
+    }
+};
+
 export const getAccountByNumber = async (req, res) => {
     try {
         const { numberAccount } = req.params;
@@ -69,7 +85,7 @@ export const getMyAccounts = async (req, res) => {
 export const getAccountsByAdmin = async (req, res) => {
     try {
         const accounts = await Account.find();
-        res.status(200).json({ accounts }); // Sin return
+        res.status(200).json({ accounts }); 
     } catch (error) {
         res.status(500).json({
             message: "Error fetching accounts",
@@ -90,18 +106,3 @@ export const selectAccount = async (req, res) => {
     }
 };
 
-export const getAccountById = async (req, res) => {
-    try {
-        const { uid } = req.params;
-        const account = await Account.findById(uid);
-        if (!account) {
-            return res.status(404).json({ message: "Account not found" });
-        }
-        return res.status(200).json({ account });
-    } catch (err) {
-        return res.status(500).json({
-            message: "Error fetching account",
-            error: err.message
-        });
-    }
-};

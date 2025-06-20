@@ -1,24 +1,22 @@
 import { body, param } from "express-validator";
-import { emailExist, usernameExist, userExists, isAdmin } from "../helpers/db-validators.js";
+import { emailExist, userExists } from "../helpers/db-validators.js";
 import { validarCampos } from "./validate-fields.js";
-import { deleteFileOnError } from "./delete-file-on-error.js"
 import { validateJWT } from "./validate-jwt.js";
 import { hasRoles } from "./validate-roles.js";
 import { handleErrors } from "./handle-error.js";
 
 export const registerValidator = [
-    body("name").notEmpty().withMessage("El nombre es requerido"),
-    body("username").notEmpty().withMessage("El username es requerido"),
-    body("email").notEmpty().withMessage("El correo es requerido"),
-    body("email").isEmail().withMessage("No es un correo válido"),
-    body("email").custom(emailExist),
-    body("dpi").notEmpty().withMessage("El DPI es requerido"),
-    body("dpi").isLength({ min: 13, max: 13 }).withMessage("El DPI debe tener 13 caracteres"),
-    body("dpi").custom(userExists),
-    body("ingresosMensuales").isNumeric().withMessage("Los ingresos mensuales deben ser un número"),
-    body("ingresosMensuales").isFloat({ min: 100 }).withMessage("Los ingresos deben ser mayores a Q100"),
+    body("name").notEmpty().isLength({ max: 25 }),
+    body("surname").notEmpty(),
+    body("username").notEmpty().isString(),
+    body("email").notEmpty().isEmail().custom(emailExist),
+    body("password").notEmpty().isLength({ min: 8 }),
+    body("dpi").notEmpty().isLength({ min: 13, max: 13 }).custom(userExists),
+    body("address").notEmpty(),
+    body("phone").notEmpty(),
+    body("nombreTrabajo").notEmpty(),
+    body("ingresosMensuales").optional().isNumeric().isFloat({ min: 100 }),
     validarCampos,
-    deleteFileOnError,
     handleErrors
 ];
 
@@ -62,9 +60,9 @@ export const listarUsersValidator = [
 ];
 
 export const loginValidator = [
-    body("email").optional().isEmail().withMessage("No es un email válido"),
-    body("username").optional().isString().withMessage("Username es en formáto erróneo"),
-    body("password").isLength({ min: 4 }).withMessage("El password debe contener al menos 8 caracteres"),
+    body("email").optional().isEmail(),
+    body("username").optional().isString(),
+    body("password").notEmpty().isLength({ min: 8 }),
     validarCampos,
     handleErrors
 ];

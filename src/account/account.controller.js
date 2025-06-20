@@ -48,9 +48,9 @@ export const getAccountById = async (req, res) => {
 
 export const getAccountByNumber = async (req, res) => {
     try {
-        const { numberAccount } = req.params;
+        const { numAccount } = req.params;
 
-        const account = await Account.findOne({ numberAccount });
+        const account = await Account.findOne({ numAccount });
         if (!account) {
             return res.status(404).json({
                 message: "Account not found"
@@ -96,13 +96,38 @@ export const getAccountsByAdmin = async (req, res) => {
 
 export const selectAccount = async (req, res) => {
     try {
-        const accounts = await Account.find();
-        return res.status(200).json({ accounts });
+        const { numAccount } = req.query; // Obtiene el número de cuenta desde la URL
+        
+        if (!numAccount) {
+            return res.status(400).json({
+                message: "Debe proporcionar un número de cuenta"
+            });
+        }
+
+        // Busca la cuenta en la base de datos
+        const account = await Account.findOne({ numAccount })
+            .select("numAccount typeAccount") // Solo devuelve estos campos
+            .populate("idUser"); // Agrega datos básicos del usuario
+
+        if (!account) {
+            return res.status(404).json({
+                message: "No se encontró una cuenta con ese número"
+            });
+        }
+
+        // Devuelve solo datos públicos para referencia
+        return res.status(200).json({
+            account: {
+                numAccount: account.numAccount,
+                type: account.typeAccount,
+                user: account.idUser // Nombre y email del dueño
+            }
+        });
+
     } catch (err) {
         return res.status(500).json({
-            message: "Error fetching accounts",
+            message: "Error al buscar la cuenta",
             error: err.message
         });
     }
 };
-

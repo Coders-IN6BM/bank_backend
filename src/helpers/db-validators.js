@@ -1,4 +1,5 @@
 import User from "../user/user.model.js";
+import Account from "../account/account.model.js";
 
 export const emailExist = async (email = "") => {
     const existe = await User.findOne({ email });
@@ -15,23 +16,22 @@ export const usernameExist = async (username = "") => {
 };
 
 export const userExists = async (dpi = "") => {
-    const user = await User.findOne({ DPI: dpi }); // Buscar por el campo DPI
+    const user = await User.findOne({ DPI: dpi }); 
     if (user) {
         throw new Error(`El DPI ${dpi} ya está registrado`);
     }
 };
 
-export const telephoneExists = async (telephone = "") => {
-    const existe = await User.findOne({ telephone });
-    if (existe) {
-        throw new Error(`User: ${telephone}, is already registered`);
+export const accountExists = async (numAccount = "") => {
+    const account = await Account.findOne({ numAccount });
+    if (account) {
+        throw new Error("La cuenta no existe"); 
     }
 };
 
-// Nueva función para verificar si un usuario es administrador
-export const isAdmin = async (id = "") => {
-    const user = await User.findById(id);
-    if (user && user.rol === "ADMIN_ROLE") {
-        throw new Error("No puedes realizar esta acción sobre un administrador");
+export const accountIdExists = async (id = "") => {
+    const account = await Account.findById(id);
+    if (account) {
+        throw new Error("Cuenta no encontrada");
     }
 };

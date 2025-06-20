@@ -1,105 +1,65 @@
 import { hash, verify } from "argon2";
 import { generateJWT } from "../helpers/generate-jwt.js";
+import { generarNumeroCuenta } from "../helpers/accountGenerator.js";
 import User from "../user/user.model.js";
 
 export const login = async (req, res) => {
-  const { email, username, password } = req.body;
-  try {
-      const user = await User.findOne({
-          $or: [{ email: email }, { username: username }]
-      });
+    const { email, username, password } = req.body;
+    
+    try {
+        const user = await User.findOne({ $or: [{ email }, { username }] }).select('+password');
+        
+        if (!user || !(await verify(user.password, password))) {
+            return res.status(400).json({ 
+                message: "Credenciales inválidas" 
+            });
+        }
 
-      if (!user) {
-          return res.status(400).json({
-              message: "Invalid credentials",
-              error: "The provided email or username does not exist"
-          });
-      }
+        const token = await generateJWT(user._id);
+        
+        return res.status(200).json({
+            token,
+            user: {
+                uid: user._id,
+                name: user.name,
+                surname: user.surname,
+                email: user.email,
+                rol: user.rol,
+                numAccount: user.numAccount
+            }
+        });
 
-      const validPassword = await verify(user.password, password);
-
-      if (!validPassword) {
-          return res.status(400).json({
-              message: "Invalid credentials",
-              error: "Incorrect password"
-          });
-      }
-
-      const token = await generateJWT(user.id);
-
-      return res.status(200).json({
-          message: "Login successful",
-          userDetails: {
-              token: token,
-              profilePicture: user.profilePicture
-          }
-      });
-  } catch (err) {
-      console.error("Error en el login:", err); 
-      return res.status(500).json({
-          message: "Login failed due to server error",
-          error: err.message || "Unknown error"
-      });
-  }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Error en el servidor" });
+    }
 };
 
 export const registerUser = async (req, res) => {
-  try {
-    const {
-      name,
-      username,
-      email,
-      password,
-      dpi,
-      address,
-      phone,
-      nombreTrabajo,
-      ingresosMensuales
-    } = req.body;
+    try {
+        const userData = req.body;
+        userData.numAccount = await generarNumeroCuenta();
+        userData.password = await hash(userData.password);
+        userData.rol = 'CLIENTE_ROL';
 
-    // Generar número único para la cuenta
-    const nameAccount = generarNumeroCuenta();
+        const newUser = await User.create(userData);
+        const token = await generateJWT(newUser._id);
 
-    // Encriptar la contraseña
-    const hashedPassword = await hash(password);
+        return res.status(201).json({
+            token,
+            user: {
+                uid: newUser._id,
+                name: newUser.name,
+                surname: newUser.surname,
+                email: newUser.email,
+                rol: newUser.rol,
+                numAccount: newUser.numAccount,
+                createdAt: newUser.createdAt
+            }
+        });
 
-    // Crear el nuevo usuario
-    const newUser = new User({
-      name,
-      username,
-      email,
-      password: hashedPassword,
-      dpi: dpi,
-      address,
-      phone,
-      nombreTrabajo,
-      ingresosMensuales,
-      nameAccount,
-      profilePicture // Asignar la foto de perfil
-    });
-
-    await newUser.save();
-
-    return res.status(201).json({
-      message: "User created successfully",
-      user: {
-        name: newUser.name,
-        username: newUser.username,
-        email: newUser.email,
-        dpi: newUser.dpi,
-        address: newUser.address,
-        phone: newUser.phone,
-        nombreTrabajo: newUser.nombreTrabajo,
-        ingresosMensuales: newUser.ingresosMensuales,
-        nameAccount: newUser.nameAccount,
-        profilePicture: newUser.profilePicture
-      }
-    });
-  } catch (err) {
-    console.error("Error registering user:", err);
-    return res.status(500).json({
-      message: "User registration failed",
-      error: err.message
-    });
-  }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Error en el servidor" });
+    }
 };

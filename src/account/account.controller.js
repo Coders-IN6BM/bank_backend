@@ -1,4 +1,6 @@
 import Account from "./account.model.js";
+import User from "../user/user.model.js";
+import Transaction from "../transaction/transaction.model.js";
 import { generateUniqueAccountNumber } from "../utils/generateAccount.js"; 
 
 export const addAccount = async (req, res) => {
@@ -48,9 +50,9 @@ export const getAccountById = async (req, res) => {
 
 export const getAccountByNumber = async (req, res) => {
     try {
-        const { numberAccount } = req.params;
+        const { numAccount } = req.params;
 
-        const account = await Account.findOne({ numberAccount });
+        const account = await Account.findOne({ numAccount });
         if (!account) {
             return res.status(404).json({
                 message: "Account not found"
@@ -94,15 +96,78 @@ export const getAccountsByAdmin = async (req, res) => {
     }
 };
 
+export const getUserAccountDetails = async (req, res) => {
+    try {
+        const { userId } = req.params; // ID del usuario que se quiere consultar
+
+        // Verificar si el usuario existe
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+
+        // Obtener las cuentas del usuario
+        const accounts = await Account.find({ idUser: userId });
+
+        // Obtener los últimos 5 movimientos de cada cuenta
+        const movimientos = await Promise.all(
+            accounts.map(async (account) => {
+                const transactions = await Transaction.find({ idAccount: account._id })
+                    .sort({ date: -1 }) // Ordenar por fecha descendente
+                    .limit(5); // Limitar a los últimos 5 movimientos
+                return {
+                    numAccount: account.numAccount,
+                    transactions
+                };
+            })
+        );
+
+        return res.status(200).json({
+            user: {
+                name: user.name,
+                surname: user.surname,
+                email: user.email
+            },
+            accounts,
+            movimientos,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Error en el servidor", error: error.message });
+    }
+};
+
 export const selectAccount = async (req, res) => {
     try {
-        const accounts = await Account.find();
-        return res.status(200).json({ accounts });
+        const { numAccount } = req.query; 
+        
+        if (!numAccount) {
+            return res.status(400).json({
+                message: "Debe proporcionar un número de cuenta"
+            });
+        }
+
+        const account = await Account.findOne({ numAccount })
+            .select("numAccount typeAccount") 
+            .populate("idUser"); 
+
+        if (!account) {
+            return res.status(404).json({
+                message: "No se encontró una cuenta con ese número"
+            });
+        }
+        return res.status(200).json({
+            account: {
+                numAccount: account.numAccount,
+                type: account.typeAccount,
+                user: account.idUser 
+            }
+        });
+
     } catch (err) {
         return res.status(500).json({
-            message: "Error fetching accounts",
+            message: "Error al buscar la cuenta",
             error: err.message
         });
     }
 };
-

@@ -21,9 +21,3 @@ async function generateUniqueAccountNumber() {
 
     return accountNumber;
 }
-
-// Ejemplo de uso
-(async () => {
-    const newAccountNumber = await generateUniqueAccountNumber();
-    console.log("Número de cuenta generado y guardado:", newAccountNumber);
-})();

@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { login, registerUser } from "../auth/auth.controller.js";
 import { loginValidator, registerValidator } from "../middleware/user-validators.js";
-import { validateJWT } from "../middlewares/validate-jwt.js";
-import { hasRoles } from "../middlewares/validate-roles.js"
 
 const router = Router();
 
-router.post("/login", validateJWT, hasRoles("ADMIN_ROLE"), loginValidator, login);
+// Ruta para login (no requiere autenticación previa)
+router.post("/login", loginValidator, login);
 
+// Ruta para registro de usuario (solo ADMIN puede registrar nuevos usuarios)
 router.post("/registerUser", registerValidator, registerUser);
 
 export default router;

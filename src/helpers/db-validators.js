@@ -16,9 +16,16 @@ export const usernameExist = async (username = "") => {
 };
 
 export const userExists = async (dpi = "") => {
-    const user = await User.findOne({ DPI: dpi }); 
+    const user = await User.findOne({ dpi: dpi }); 
     if (user) {
         throw new Error(`El DPI ${dpi} ya está registrado`);
+    }
+};
+
+export const phoneExists = async (phone = "") => {
+    const user = await User.findOne({ phone }); 
+    if (user) {
+        throw new Error(`El teléfono ${phone} ya está registrado`);
     }
 };
 

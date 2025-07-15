@@ -31,14 +31,21 @@ export const phoneExists = async (phone = "") => {
 
 export const accountExists = async (numAccount = "") => {
     const account = await Account.findOne({ numAccount });
-    if (account) {
+    if (!account) {
         throw new Error("La cuenta no existe"); 
     }
 };
 
 export const accountIdExists = async (id = "") => {
     const account = await Account.findById(id);
-    if (account) {
+    if (!account) {
         throw new Error("Cuenta no encontrada");
+    }
+};
+
+export const userIdExists = async (userId = "") => {
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new Error("El usuario especificado no existe");
     }
 };

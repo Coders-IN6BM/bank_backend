@@ -5,7 +5,8 @@ import {
     addToFavorites, 
     getFavorites, 
     removeFromFavorites, 
-    updateFavoriteAlias 
+    updateFavoriteAlias,
+    getAllUsers
 } from "./user.controller.js";
 import { 
     getMyAccountsValidator, 
@@ -13,7 +14,8 @@ import {
     addToFavoritesValidator,
     getFavoritesValidator,
     removeFromFavoritesValidator,
-    updateFavoriteAliasValidator
+    updateFavoriteAliasValidator,
+    listarUsersValidator
 } from "../middleware/user-validators.js";
 
 const router = Router();
@@ -36,5 +38,9 @@ router.delete("/favorites/:accountNumber", removeFromFavoritesValidator, removeF
 
 // Actualizar alias de favorito
 router.put("/favorites/:accountNumber/alias", updateFavoriteAliasValidator, updateFavoriteAlias);
+
+// ===== RUTAS ADMIN =====
+// Listar todos los usuarios (para que ADMIN pueda seleccionar al crear cuentas)
+router.get("/all-users", listarUsersValidator, getAllUsers);
 
 export default router;

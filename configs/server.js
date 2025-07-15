@@ -6,6 +6,7 @@ import morgan from "morgan";
 import { dbConnection } from "./mongo.js";
 import authRoutes from "../src/auth/auth.routes.js";
 import userRoutes from "../src/user/user.routes.js";
+import accountRoutes from "../src/account/account.routes.js";
 import apiLimiter from "../src/middleware/rate-limit-validator.js";
 import { crearAdmin } from "./createAdminDefaul.js"; // Importar la función para crear el admin
 
@@ -23,6 +24,7 @@ const middlewares = (app) => {
 const routes = (app) => {
   app.use("/bank/v1/auth", authRoutes);
   app.use("/bank/v1/user", userRoutes);
+  app.use("/bank/v1/account", accountRoutes);
 };
 
 const conectarDB = async () => {

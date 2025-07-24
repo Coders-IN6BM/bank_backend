@@ -1,0 +1,957 @@
+{
+	"info": {
+		"_postman_id": "f9b5d401-012a-497d-8d39-840fabb48d3c",
+		"name": "db_Bank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42058393"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTMwMDk4MjksImV4cCI6MTc1MzAyNDIyOX0.T_mDf-O-4rCEGd0XSJBmNcXuy0U5fGYG3CHCaVJinU0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"ADMINB\",\r\n  \"password\": \"ADMINB\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTI2MTc0MjQsImV4cCI6MTc1MjYzMTgyNH0.dSkKdf-mLtD-LFlR2I33rhjYa-wcvdLx0xXG4IAzLps",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Paola\",\r\n  \"surname\": \"Ye\",\r\n  \"username\": \"paolaye\",\r\n  \"email\": \"paola131@gmail.com\",\r\n  \"password\": \"12345678\",\r\n  \"dpi\": \"1234567891233\",\r\n  \"address\": \"Casa Bro\",\r\n  \"phone\": \"78942418\",\r\n  \"nombreTrabajo\": \"Analista 2\",\r\n  \"ingresosMensuales\": 7500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/auth/registerUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"auth",
+								"registerUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "addAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTI5ODkxMTYsImV4cCI6MTc1MzAwMzUxNn0.gCTu_hS2KghC9o4H7Qikkx6FedkShsYZeKEmpwFmLxM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"6876d1dd7c26e299b3ffeb68\",\r\n  \"typeAccount\": \"AHORRO\", \r\n  \"status\": true \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/account/addAccount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"account",
+								"addAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAccountByIdAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTI2MTYxOTUsImV4cCI6MTc1MjYzMDU5NX0.LREYhXUv_yUH0yq8kbjWW_o489GDuhBZwgr11MGbCEk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/account/getAccountById/687661b611892264b7e3afa7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"account",
+								"getAccountById",
+								"687661b611892264b7e3afa7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAccountByNumber",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTI2MTYxOTUsImV4cCI6MTc1MjYzMDU5NX0.LREYhXUv_yUH0yq8kbjWW_o489GDuhBZwgr11MGbCEk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/account/getAccountByNumber/413683083168",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"account",
+								"getAccountByNumber",
+								"413683083168"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAccountsByAdmin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTI2MTYxOTUsImV4cCI6MTc1MjYzMDU5NX0.LREYhXUv_yUH0yq8kbjWW_o489GDuhBZwgr11MGbCEk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/account/getAllAccountsByAdmin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"account",
+								"getAllAccountsByAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAccountBySelect",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTI2MTY2NjQsImV4cCI6MTc1MjYzMTA2NH0.EHHrGq1ZlhNACYt3ldplepeBDCLjqB68cvCcFpy7AdE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/account/selectAccount?numAccount=413683083168",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"account",
+								"selectAccount"
+							],
+							"query": [
+								{
+									"key": "numAccount",
+									"value": "413683083168"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "loginMyUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"paolaye\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMyAccounts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTMzMTM4NTAsImV4cCI6MTc1MzMyODI1MH0.K96V8js1HO9xvAID-w26kFaIewif_HxlpN90iudfUmY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/user/my-accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"user",
+								"my-accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editMyProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTI5NTQ1MTMsImV4cCI6MTc1Mjk2ODkxM30.fwQ_QcolKo32qYr_F9ykCz0webv2pv39l_WFXC8uWEI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": \"Nueva dirección 123\",\r\n  \"nombreTrabajo\": \"Desarrollador Senior\",\r\n  \"ingresosMensuales\": 8000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/user/my-profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"user",
+								"my-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addFavorites",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTI5NTUyMDUsImV4cCI6MTc1Mjk2OTYwNX0.TW406WBtL-d-FZQktPcB8l6cvZf4tcXfO845LT4lvio",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"accountNumber\": \"413683083168\",\r\n  \"type\": \"AHORRO\",\r\n  \"alias\": \"Cuenta de Ye\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/user/favorites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"user",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMyFavoriteAccounts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTI5NTUyMDUsImV4cCI6MTc1Mjk2OTYwNX0.TW406WBtL-d-FZQktPcB8l6cvZf4tcXfO845LT4lvio",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/user/favorites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"user",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAlias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTI5NTU0ODYsImV4cCI6MTc1Mjk2OTg4Nn0.Ey7W39ZKcHAInzB-ZOclf-9X1W67sf_D9p5QwmN3WJY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"alias\": \"Yee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/user/favorites/413683083168/alias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"user",
+								"favorites",
+								"413683083168",
+								"alias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTI5NTU1ODksImV4cCI6MTc1Mjk2OTk4OX0.xIpV86OAu-Xf2bzrx-RE2mMazPKKq5v7uT_04-RzZpg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/user/all-users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"user",
+								"all-users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transactions",
+			"item": [
+				{
+					"name": "transferFondos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTMwMTExMTAsImV4cCI6MTc1MzAyNTUxMH0.GP1cC7QxNkgzyDv1MbNI8vCIKtFSAZXz5EGGQboN7h8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"senderAccountNumber\": \"402476812744\",\r\n  \"recipientAccountNumber\": \"999569735988\", \r\n  \"recipientAccountType\": \"AHORRO\",\r\n  \"amount\": 950,\r\n  \"description\": \"Para pavos de Fortnite\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/transfer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"transfer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "revertFondos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTMzMTM4NTAsImV4cCI6MTc1MzMyODI1MH0.K96V8js1HO9xvAID-w26kFaIewif_HxlpN90iudfUmY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/revert-my-transfer/688172b2fafaa09a147a11cf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"revert-my-transfer",
+								"688172b2fafaa09a147a11cf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "historyByOneAccount",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTMzMTM4NTAsImV4cCI6MTc1MzMyODI1MH0.K96V8js1HO9xvAID-w26kFaIewif_HxlpN90iudfUmY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/my-account/402476812744",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"my-account",
+								"402476812744"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "historyByMyAccounts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTMwMTA2MDIsImV4cCI6MTc1MzAyNTAwMn0.hbIoJdA0qA8Hvo3Aq4cPMaetp4h7DQU1M8N_TyGQ9to",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/my-recent-transfers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"my-recent-transfers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "historyMyAllAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc2ZDFkZDdjMjZlMjk5YjNmZmViNjgiLCJpYXQiOjE3NTMwMTA2MDIsImV4cCI6MTc1MzAyNTAwMn0.hbIoJdA0qA8Hvo3Aq4cPMaetp4h7DQU1M8N_TyGQ9to",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/history/999569735988",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"history",
+								"999569735988"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "historyAllAccountByAdmin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTI5ODk4NTEsImV4cCI6MTc1MzAwNDI1MX0.MQxXO3_AA9xktuMXa4tN47V_S3worslXVnlX-HzROZA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/admin/account/402476812744/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"admin",
+								"account",
+								"402476812744",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "historyAllAccountsByAd",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTMwMDk4MjksImV4cCI6MTc1MzAyNDIyOX0.T_mDf-O-4rCEGd0XSJBmNcXuy0U5fGYG3CHCaVJinU0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/admin/all-transfers?page=1&limit=20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"admin",
+								"all-transfers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "deposit",
+			"item": [
+				{
+					"name": "adminDeposit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTMzMTM3NjEsImV4cCI6MTc1MzMyODE2MX0.7VzdmhOTCgKtsj-Ri_doQng7lbALJ8n5aL8PWH1VExA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"accountNumber\": \"402476812744\",\r\n  \"amount\": 225\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/admin/deposit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"admin",
+								"deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "allDepositByAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTMzMTM3NjEsImV4cCI6MTc1MzMyODE2MX0.7VzdmhOTCgKtsj-Ri_doQng7lbALJ8n5aL8PWH1VExA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/admin/deposits-history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"admin",
+								"deposits-history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "revertDepositByAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc0NWYxNTQxMzJlOWZmNzlhNjhjOTQiLCJpYXQiOjE3NTMzMTM3NjEsImV4cCI6MTc1MzMyODE2MX0.7VzdmhOTCgKtsj-Ri_doQng7lbALJ8n5aL8PWH1VExA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/bank/v1/transaction/admin/revert-deposit/688171f6fafaa09a147a11b5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"bank",
+								"v1",
+								"transaction",
+								"admin",
+								"revert-deposit",
+								"688171f6fafaa09a147a11b5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

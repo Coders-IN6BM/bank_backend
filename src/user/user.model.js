@@ -46,10 +46,10 @@ const userSchema = new Schema({
     required: true
 },
   favorites: [{
-  accountNumber: String,
-  type: String,
-  alias: String
-}],
+    accountNumber: { type: String, required: true },
+    type: { type: String, required: true },
+    alias: { type: String, required: true }
+  }],
   ingresosMensuales:{ 
     type: Number,
 },

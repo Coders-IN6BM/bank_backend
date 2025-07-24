@@ -1,0 +1,219 @@
+[{
+  "_id": {
+    "$oid": "687cd7b728f8d9e200b8c6bf"
+  },
+  "idAccount": {
+    "$oid": "6876d2137c26e299b3ffeb6c"
+  },
+  "amount": 10000,
+  "description": "Depósito bancario realizado por Admin",
+  "type": "CREDIT",
+  "createdAt": {
+    "$date": "2025-07-20T11:49:11.579Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-20T11:49:11.579Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "687cd7f128f8d9e200b8c6ca"
+  },
+  "idAccount": {
+    "$oid": "6876d2137c26e299b3ffeb6c"
+  },
+  "amount": 950,
+  "description": "Para pavos de Fortnite - Enviado a cuenta 999569735988",
+  "type": "DEBIT",
+  "createdAt": {
+    "$date": "2025-07-20T11:50:09.476Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-20T11:50:09.476Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "687cd7f128f8d9e200b8c6cb"
+  },
+  "idAccount": {
+    "$oid": "687c7dc8d197e1d0dce8dba4"
+  },
+  "amount": 950,
+  "description": "Para pavos de Fortnite - Recibido de cuenta 402476812744",
+  "type": "CREDIT",
+  "createdAt": {
+    "$date": "2025-07-20T11:50:09.480Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-20T11:50:09.480Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "687cd85728f8d9e200b8c6d5"
+  },
+  "idAccount": {
+    "$oid": "6876d2137c26e299b3ffeb6c"
+  },
+  "amount": 125,
+  "description": "Hamburguesas - Enviado a cuenta 999569735988",
+  "type": "DEBIT",
+  "createdAt": {
+    "$date": "2025-07-20T11:51:51.337Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-20T11:51:51.337Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "687cd85728f8d9e200b8c6d6"
+  },
+  "idAccount": {
+    "$oid": "687c7dc8d197e1d0dce8dba4"
+  },
+  "amount": 125,
+  "description": "Hamburguesas - Recibido de cuenta 402476812744",
+  "type": "CREDIT",
+  "createdAt": {
+    "$date": "2025-07-20T11:51:51.341Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-20T11:51:51.341Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "687cd9988174e4109fb77079"
+  },
+  "idAccount": {
+    "$oid": "6876d2137c26e299b3ffeb6c"
+  },
+  "amount": 150,
+  "description": "Shucos - Enviado a cuenta 999569735988 (REVERTIDA POR CLIENTE)",
+  "type": "DEBIT",
+  "createdAt": {
+    "$date": "2025-07-20T11:57:12.844Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-20T11:57:23.315Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "687cd9988174e4109fb7707a"
+  },
+  "idAccount": {
+    "$oid": "687c7dc8d197e1d0dce8dba4"
+  },
+  "amount": 150,
+  "description": "Shucos - Recibido de cuenta 402476812744 (REVERTIDA POR CLIENTE)",
+  "type": "CREDIT",
+  "createdAt": {
+    "$date": "2025-07-20T11:57:12.851Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-20T11:57:23.319Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "688118547b9cebc6176f5459"
+  },
+  "idAccount": {
+    "$oid": "6876d2137c26e299b3ffeb6c"
+  },
+  "amount": 150,
+  "description": "Transferencia a cuenta 999569735988",
+  "type": "DEBIT",
+  "date": {
+    "$date": "2025-07-23T17:13:56.010Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-23T17:13:56.014Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-23T17:13:56.014Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "688118547b9cebc6176f545a"
+  },
+  "idAccount": {
+    "$oid": "687c7dc8d197e1d0dce8dba4"
+  },
+  "amount": 150,
+  "description": "Transferencia recibida de cuenta 402476812744",
+  "type": "CREDIT",
+  "date": {
+    "$date": "2025-07-23T17:13:56.012Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-23T17:13:56.036Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-23T17:13:56.036Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "688171f6fafaa09a147a11b5"
+  },
+  "idAccount": {
+    "$oid": "6876d2137c26e299b3ffeb6c"
+  },
+  "amount": 225,
+  "description": "Depósito bancario realizado por Admin (REVERTIDO POR ADMIN)",
+  "type": "CREDIT",
+  "date": {
+    "$date": "2025-07-23T23:36:22.271Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-23T23:36:22.271Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-23T23:37:16.701Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "688172b2fafaa09a147a11cf"
+  },
+  "idAccount": {
+    "$oid": "6876d2137c26e299b3ffeb6c"
+  },
+  "amount": 75,
+  "description": "Transferencia a cuenta 999569735988 (REVERTIDA POR CLIENTE)",
+  "type": "DEBIT",
+  "date": {
+    "$date": "2025-07-23T23:39:30.271Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-23T23:39:30.273Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-23T23:40:27.004Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "688172b2fafaa09a147a11d0"
+  },
+  "idAccount": {
+    "$oid": "687c7dc8d197e1d0dce8dba4"
+  },
+  "amount": 75,
+  "description": "Transferencia recibida de cuenta 402476812744 (REVERTIDA POR CLIENTE)",
+  "type": "CREDIT",
+  "date": {
+    "$date": "2025-07-23T23:39:30.272Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-23T23:39:30.275Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-23T23:40:27.007Z"
+  }
+}]

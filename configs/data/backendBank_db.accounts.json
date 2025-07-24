@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "687661b611892264b7e3afa7"
+  },
+  "idUser": {
+    "$oid": "68745f265b25e75b42cdf700"
+  },
+  "numAccount": "413683083168",
+  "typeAccount": "AHORRO",
+  "balance": 16500,
+  "status": true,
+  "createdAt": {
+    "$date": "2025-07-15T14:12:06.282Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-20T05:13:01.712Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6876d2137c26e299b3ffeb6c"
+  },
+  "idUser": {
+    "$oid": "6876d1dd7c26e299b3ffeb68"
+  },
+  "numAccount": "402476812744",
+  "typeAccount": "MONETARIA",
+  "balance": 13300,
+  "status": true,
+  "createdAt": {
+    "$date": "2025-07-15T22:11:31.434Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-23T23:40:26.997Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "687c7dc8d197e1d0dce8dba4"
+  },
+  "idUser": {
+    "$oid": "6876d1dd7c26e299b3ffeb68"
+  },
+  "numAccount": "999569735988",
+  "typeAccount": "AHORRO",
+  "balance": 14200,
+  "status": true,
+  "createdAt": {
+    "$date": "2025-07-20T05:25:28.346Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-23T23:40:27.001Z"
+  }
+}]

@@ -14,6 +14,11 @@ const transactionSchema = new Schema({
         type: String,
         required: true
     },
+    type: {
+        type: String,
+        enum: ["CREDIT", "DEBIT"],
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now

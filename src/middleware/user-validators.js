@@ -39,7 +39,6 @@ export const registerValidator = [
 export const loginValidator = [
     body("email").optional().isEmail().withMessage("El correo debe ser válido"),
     body("username").optional().isString().withMessage("El nombre de usuario debe ser válido"),
-    body("password").notEmpty().withMessage("La contraseña es requerida").isLength({ min: 8 }).withMessage("La contraseña debe tener al menos 8 caracteres"),
     // Validación personalizada para asegurar que se proporcione email o username
     body().custom((value, { req }) => {
         if (!req.body.email && !req.body.username) {

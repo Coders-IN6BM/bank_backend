@@ -1,0 +1,86 @@
+[{
+  "_id": {
+    "$oid": "68745f154132e9ff79a68c94"
+  },
+  "name": "Admin",
+  "surname": "Bro",
+  "username": "ADMINB",
+  "email": "admin@example.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$IGYOve8SXvrKAcahCpU/QQ$+Kj1c4FSIQkmutdVYSHzwdu7yJfC4Q1Xv8Kxry3WEB4",
+  "rol": "ADMIN_ROLE",
+  "address": "Default Address",
+  "phone": "12345678",
+  "nombreTrabajo": "Admin",
+  "favorites": [],
+  "ingresosMensuales": 0,
+  "fechaCreacion": {
+    "$date": "2025-07-14T01:36:21.449Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-14T01:36:21.459Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-14T01:36:21.459Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68745f265b25e75b42cdf700"
+  },
+  "name": "John",
+  "surname": "Doe",
+  "username": "johndoe",
+  "email": "johndoe@example.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$CjU0NMB516I6FzIYu21VwQ$uQEVVSi5CeuHJt1zaPcVPQPBx9AKQn+YZ6kz5al0P5M",
+  "rol": "CLIENTE_ROL",
+  "dpi": "1234567891234",
+  "address": "123 Main St",
+  "phone": "5551234567",
+  "nombreTrabajo": "Software Engineer",
+  "favorites": [],
+  "ingresosMensuales": 5000,
+  "fechaCreacion": {
+    "$date": "2025-07-14T01:36:38.906Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-14T01:36:38.909Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-14T01:36:38.909Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6876d1dd7c26e299b3ffeb68"
+  },
+  "name": "Paola",
+  "surname": "Ye",
+  "username": "paolaye",
+  "email": "paola131@gmail.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$bYiIrs0MnGqJz6/r1UOS4A$QdEHWuFpiI4FhuMns7RSDTLGTd5DsmCSb3j5FQFSqn8",
+  "rol": "CLIENTE_ROL",
+  "dpi": "1234567891233",
+  "address": "Nueva dirección 123",
+  "phone": "78942418",
+  "nombreTrabajo": "Desarrollador Senior",
+  "favorites": [
+    {
+      "accountNumber": "413683083168",
+      "type": "AHORRO",
+      "alias": "Yee",
+      "_id": {
+        "$oid": "687bf957147af7c46357dafd"
+      }
+    }
+  ],
+  "ingresosMensuales": 8000,
+  "fechaCreacion": {
+    "$date": "2025-07-15T22:10:37.958Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-15T22:10:37.964Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-19T20:05:11.118Z"
+  }
+}]

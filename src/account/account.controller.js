@@ -5,29 +5,29 @@ import { generateUniqueAccountNumber } from "../utils/generateAccount.js";
 
 export const addAccount = async (req, res) => {
     try {
-        const { typeAccount, status } = req.body;
-        const idUser = req.usuario._id;
+        const { userId, typeAccount, status } = req.body;
+        const numAccount = await generateUniqueAccountNumber();
 
-        const numAccount = generateUniqueAccountNumber();
-
-        const newAccount = new Account({
-            idUser,
+        const account = new Account({
+            idUser: userId,
             numAccount,
             typeAccount,
-            balance: 0,
-            status
+            balance: 0, 
+            status: status !== undefined ? status : true 
         });
 
-        const savedAccount = await newAccount.save();
+        await account.save();
 
-        res.status(201).json({
-            message: "Cuenta creada exitosamente",
-            account: savedAccount
+        const accountWithUser = await Account.findById(account._id).populate('idUser', 'name surname email');
+
+        return res.status(201).json({
+            message: "Account created successfully",
+            account: accountWithUser
         });
-    } catch (error) {
-        res.status(500).json({
-            message: "Error al crear la cuenta",
-            error: error.message
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error creating account",
+            error: err.message
         });
     }
 };
@@ -98,23 +98,20 @@ export const getAccountsByAdmin = async (req, res) => {
 
 export const getUserAccountDetails = async (req, res) => {
     try {
-        const { userId } = req.params; // ID del usuario que se quiere consultar
+        const { userId } = req.params; 
 
-        // Verificar si el usuario existe
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
 
-        // Obtener las cuentas del usuario
         const accounts = await Account.find({ idUser: userId });
 
-        // Obtener los últimos 5 movimientos de cada cuenta
         const movimientos = await Promise.all(
             accounts.map(async (account) => {
                 const transactions = await Transaction.find({ idAccount: account._id })
-                    .sort({ date: -1 }) // Ordenar por fecha descendente
-                    .limit(5); // Limitar a los últimos 5 movimientos
+                    .sort({ date: -1 }) 
+                    .limit(5); 
                 return {
                     numAccount: account.numAccount,
                     transactions

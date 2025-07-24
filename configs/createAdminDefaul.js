@@ -3,18 +3,16 @@ import { hash } from "argon2";
 
 export const crearAdmin = async () => {
   try {
-    // Verificar si ya existe un administrador
     const adminExists = await User.findOne({ rol: "ADMIN_ROLE" });
 
     if (adminExists) {
       console.log("Admin already exists. Skipping creation.");
       return;
     }
-
-    // Crear un administrador por defecto
-    const hashedPassword = await hash("ADMINB"); // Contraseña encriptada
+    const hashedPassword = await hash("ADMINB"); 
     const adminUser = new User({
-      name: "AdminBro",
+      name: "Admin",
+      surname:"Bro",
       username: "ADMINB",
       email: "admin@example.com",
       password: hashedPassword,

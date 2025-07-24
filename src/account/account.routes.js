@@ -1,18 +1,28 @@
 import { Router } from "express";
-import { addAccount, getAccountById, getAccountByNumber, getMyAccounts, getAccountsByAdmin } from "./account.controller.js";
-import { } from "../middlewares/account-validator.js";
-import { generateUniqueAccountNumber } from "../utils/generateAccount.js"
+import { 
+    addAccount, 
+    getAccountById, 
+    getAccountByNumber, 
+    getAccountsByAdmin,
+    selectAccount
+} from "./account.controller.js";
+import { 
+    addAccountValidator,
+    getAccountByIdValidator,
+    getAccountByNumberValidator,
+    getAllAccountsValidator,
+    selectAccountValidator
+} from "../middleware/account-validators.js";
+
 const router = Router();
 
-router.post("/addAccount", addAccount, generateUniqueAccountNumber);
+router.post("/addAccount", addAccountValidator, addAccount);
 
-router.get("/getAccountById/:uid", getAccountById);
+router.get("/getAccountById/:uid", getAccountByIdValidator, getAccountById);
 
-router.get("/getAccountByNumber/:numberAccount", getAccountByNumber);
+router.get("/getAccountByNumber/:numAccount", getAccountByNumberValidator, getAccountByNumber);
 
-router.get("/getMyAccounts", getMyAccounts);
-
-router.get("/getAllAccountsByAdmin", getAccountsByAdmin);
+router.get("/getAllAccountsByAdmin", getAllAccountsValidator, getAccountsByAdmin);
 
 router.get("/selectAccount", selectAccountValidator, selectAccount);
 

@@ -2,12 +2,10 @@ import { hash, verify } from "argon2";
 import User from "./user.model.js";
 import Account from "../account/account.model.js";
 
-// Función para que el cliente acceda a sus cuentas
 export const getMyAccounts = async (req, res) => {
     try {
-        const userId = req.usuario._id; // ID del usuario autenticado
+        const userId = req.usuario._id; 
 
-        // Obtener las cuentas asociadas al usuario
         const accounts = await Account.find({ idUser: userId });
 
         if (!accounts || accounts.length === 0) {
@@ -21,18 +19,15 @@ export const getMyAccounts = async (req, res) => {
     }
 };
 
-// Función para que el cliente edite su información personal
 export const editUserProfile = async (req, res) => {
     try {
-        const userId = req.usuario._id; // ID del usuario autenticado
+        const userId = req.usuario._id; 
         const { name, address, nombreTrabajo, ingresosMensuales } = req.body;
 
-        // Validar que al menos uno de los campos esté presente
         if (!name && !address && !nombreTrabajo && !ingresosMensuales) {
             return res.status(400).json({ message: "Debe proporcionar al menos un campo para actualizar" });
         }
 
-        // Actualizar los campos proporcionados
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             { name, address, nombreTrabajo, ingresosMensuales },
@@ -53,57 +48,66 @@ export const editUserProfile = async (req, res) => {
     }
 };
 
-// Función para agregar una cuenta a favoritos
 export const addToFavorites = async (req, res) => {
     try {
+        console.log('=== DEBUG: addToFavorites ===');
+        console.log('req.body:', req.body);
+        console.log('req.usuario._id:', req.usuario._id);
+        
         const userId = req.usuario._id;
         const { accountNumber, type, alias } = req.body;
 
-        // Verificar que la cuenta existe
+        console.log('Extracted data:', { userId, accountNumber, type, alias });
+
         const account = await Account.findOne({ numAccount: accountNumber });
+        console.log('Found account:', account);
+        
         if (!account) {
             return res.status(404).json({ message: "La cuenta no existe" });
         }
 
-        // Verificar que no sea su propia cuenta
         if (account.idUser.toString() === userId.toString()) {
             return res.status(400).json({ message: "No puedes agregar tu propia cuenta a favoritos" });
         }
 
-        // Verificar que no esté ya en favoritos
         const user = await User.findById(userId);
+        console.log('Current user favorites:', user.favorites);
+        
         const existingFavorite = user.favorites.find(fav => fav.accountNumber === accountNumber);
         
         if (existingFavorite) {
             return res.status(400).json({ message: "Esta cuenta ya está en tus favoritos" });
         }
 
-        // Agregar a favoritos
+        const favoriteData = {
+            accountNumber, 
+            type: type || account.typeAccount,
+            alias: alias || `Cuenta ${accountNumber.slice(-4)}`
+        };
+        console.log('Favorite data to add:', favoriteData);
+
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             { 
                 $push: { 
-                    favorites: { 
-                        accountNumber, 
-                        type: type || account.typeAccount,
-                        alias: alias || `Cuenta ${accountNumber.slice(-4)}`
-                    } 
+                    favorites: favoriteData
                 } 
             },
             { new: true }
         );
+
+        console.log('Updated user favorites:', updatedUser.favorites);
 
         return res.status(200).json({
             message: "Cuenta agregada a favoritos exitosamente",
             favorites: updatedUser.favorites
         });
     } catch (error) {
-        console.error(error);
+        console.error('Error in addToFavorites:', error);
         return res.status(500).json({ message: "Error al agregar a favoritos", error: error.message });
     }
 };
 
-// Función para obtener favoritos del usuario
 export const getFavorites = async (req, res) => {
     try {
         const userId = req.usuario._id;
@@ -123,7 +127,6 @@ export const getFavorites = async (req, res) => {
     }
 };
 
-// Función para eliminar una cuenta de favoritos
 export const removeFromFavorites = async (req, res) => {
     try {
         const userId = req.usuario._id;
@@ -153,7 +156,6 @@ export const removeFromFavorites = async (req, res) => {
     }
 };
 
-// Función para actualizar alias de un favorito
 export const updateFavoriteAlias = async (req, res) => {
     try {
         const userId = req.usuario._id;
@@ -188,5 +190,21 @@ export const updateFavoriteAlias = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Error al actualizar alias", error: error.message });
+    }
+};
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find({ rol: 'CLIENTE_ROL' })
+            .select('_id name surname email username')
+            .sort({ name: 1 });
+
+        return res.status(200).json({
+            message: "Lista de usuarios obtenida exitosamente",
+            users
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Error al obtener usuarios", error: error.message });
     }
 };

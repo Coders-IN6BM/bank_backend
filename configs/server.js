@@ -5,9 +5,11 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { dbConnection } from "./mongo.js";
 import authRoutes from "../src/auth/auth.routes.js";
+import transactionRoutes from "../src/transaction/transaction.routes.js";
 import userRoutes from "../src/user/user.routes.js";
+import accountRoutes from "../src/account/account.routes.js";
 import apiLimiter from "../src/middleware/rate-limit-validator.js";
-import { crearAdmin } from "./createAdminDefaul.js"; // Importar la función para crear el admin
+import { crearAdmin } from "./createAdminDefaul.js"; 
 
 const app = express();
 
@@ -23,6 +25,8 @@ const middlewares = (app) => {
 const routes = (app) => {
   app.use("/bank/v1/auth", authRoutes);
   app.use("/bank/v1/user", userRoutes);
+  app.use("/bank/v1/account", accountRoutes);
+  app.use("/bank/v1/transaction", transactionRoutes);
 };
 
 const conectarDB = async () => {
@@ -39,7 +43,7 @@ export const initiServer = async () => {
     middlewares(app);
     await conectarDB();
     routes(app);
-    await crearAdmin(); // Crear el administrador por defecto
+    await crearAdmin(); 
 
     app.listen(process.env.PORT, () => {
       console.log(`Server running on port ${process.env.PORT}`);

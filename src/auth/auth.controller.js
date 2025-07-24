@@ -1,6 +1,5 @@
 import { hash, verify } from "argon2";
 import { generateJWT } from "../helpers/generate-jwt.js";
-import { generarNumeroCuenta } from "../helpers/accountGenerator.js";
 import User from "../user/user.model.js";
 
 export const login = async (req, res) => {
@@ -24,8 +23,7 @@ export const login = async (req, res) => {
                 name: user.name,
                 surname: user.surname,
                 email: user.email,
-                rol: user.rol,
-                numAccount: user.numAccount
+                rol: user.rol
             }
         });
 
@@ -38,7 +36,6 @@ export const login = async (req, res) => {
 export const registerUser = async (req, res) => {
     try {
         const userData = req.body;
-        userData.numAccount = await generarNumeroCuenta();
         userData.password = await hash(userData.password);
         userData.rol = 'CLIENTE_ROL';
 
@@ -53,7 +50,6 @@ export const registerUser = async (req, res) => {
                 surname: newUser.surname,
                 email: newUser.email,
                 rol: newUser.rol,
-                numAccount: newUser.numAccount,
                 createdAt: newUser.createdAt
             }
         });
